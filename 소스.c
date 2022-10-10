@@ -398,7 +398,7 @@ void main()
 	}
 	else if (score = 0)
 	{
-		printf("0점? 게임을 시작하고 샤워라도 하러갔니??");
+		printf("0점? 게임 시작하고 샤워라도 하러갔니??");
 	}
 	else if (score < 10)
 	{
