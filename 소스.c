@@ -20,7 +20,11 @@ int random;
 
 int randomtime;
 
+int randomstop;
+
 int menu;
+
+int N = 1;
 
 int q, w, e, r; // 입력 값
 
@@ -73,6 +77,7 @@ void start() // 시작
 		system("cls");
 		printf("이 게임은 리그오브레전드를 플레이 하기 전 \n손을 풀기 위한 목적으로 만들었습니다!\n");
 		printf("화면에 보이는 이즈리얼의 Q,W,E,R을 보고 누르시면 됩니다!\n");
+		printf("꾹 누르면 추가 점수가 있습니다!\n");
 		printf("게임은 약 80초간 진행됩니다!\n");
 		printf("\n");
 		load("q.txt");
@@ -176,16 +181,6 @@ void start() // 시작
 	system("cls");
 } 
 
-void gotoxy(int x, int y)
-
-{
-
-	COORD pos = { x,y };
-
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-
-}
-
 unsigned _stdcall KEY(void* arg)
 {
 	while (timeout)
@@ -226,42 +221,52 @@ unsigned _stdcall print_random(void* arg)
 	{
 		random = rand() % 4;
 
+		randomstop = rand() % (1000 + 1 - 500) + 500;
+
 		randomtime = rand() % 2000;
 
 		if (random == 0)
 		{
+			N--;
 			Q++;
 			load("q.txt");
-			Sleep(1000);
+			Sleep(randomstop);
 			Q--;
 			system("cls");
+			N++;
 			Sleep(randomtime);
 		}
 		else if (random == 1)
 		{
+			N--;
 			W++;
 			load("w.txt");
-			Sleep(1000);
+			Sleep(randomstop);
 			W--;
 			system("cls");
+			N++;
 			Sleep(randomtime);
 		}
 		else if (random == 2)
 		{
+			N--;
 			E++;
 			load("e.txt");
-			Sleep(1000);
+			Sleep(randomstop);
 			E--;
 			system("cls");
+			N++;
 			Sleep(randomtime);
 		}
 		else if (random == 3)
 		{
+			N--;
 			R++;
 			load("r.txt");
-			Sleep(1000);
+			Sleep(randomstop);
 			R--;
 			system("cls");
+			N++;
 			Sleep(randomtime);
 
 		}
@@ -302,7 +307,6 @@ void main()
 			{
 				score++;
 				Sleep(200);
-				printf("+1점!");
 			}
 			else if (W == 1)
 			{
@@ -315,6 +319,11 @@ void main()
 				Sleep(200);
 			}
 			else if (R == 1)
+			{
+				score--;
+				Sleep(200);
+			}
+			else if (N == 1)
 			{
 				score--;
 				Sleep(200);
@@ -342,6 +351,11 @@ void main()
 				score--;
 				Sleep(200);
 			}
+			else if (N == 1)
+			{
+				score--;
+				Sleep(200);
+			}
 		}
 		if (e == 1)
 		{
@@ -361,6 +375,11 @@ void main()
 				Sleep(200);
 			}
 			else if (R == 1)
+			{
+				score--;
+				Sleep(200);
+			}
+			else if (N == 1)
 			{
 				score--;
 				Sleep(200);
@@ -388,32 +407,14 @@ void main()
 				score++;
 				Sleep(200);
 			}
+			else if (N == 1)
+			{
+				score--;
+				Sleep(200);
+			}
 		}
 	}
 	system("cls");
-
-	if (score < 0)
-	{
-		printf("%d..? 마이너스..?");
-	}
-	else if (score = 0)
-	{
-		printf("0점? 게임 시작하고 샤워라도 하러갔니??");
-	}
-	else if (score < 10)
-	{
-		printf("겨우 %d점이야? 실망이다..", score);
-	}
-	else if (score < 50)
-	{
-		printf("겨우 %d점이야? 조금 더 노력하자!", score);
-	}
-	else if (score < 100)
-	{
-		printf("%d점이야! 조금 잘하는데?", score);
-	}
-	else if (score > 100)
-	{
-		printf("%d점? 이게 되는구나..", score);
-	}
+	
+	printf("당신의 점수는 %d점 입니다!", score);
 }
